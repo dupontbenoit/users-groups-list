@@ -12,10 +12,11 @@ class CsvImport:
             for row in reader:
                 print(row)
                 if self.is_user(row[0]):
-                    self.create_or_update_user(row)
+                    user, created = self.create_or_update_user(row)
+                    self.handle_user_groups(user, row)
 
                 if self.is_group(row[0]):
-                    self.create_or_update_group(row)
+                    self.create_or_update_group(row[1])
 
     def is_user(self, value: str):
         return value == 'U'
@@ -29,8 +30,15 @@ class CsvImport:
         )
         return (obj, created)
 
-    def create_or_update_group(self, row):
+    def create_or_update_group(self, group_name):
         obj, created = Group.objects.update_or_create(
-            name=row[1]
+            name=group_name
         )
         return (obj, created)
+
+    def handle_user_groups(self, user: User, row):
+        if len(row) > 3:
+            for group in row[3].split(';'):
+                saved_group, created = self.create_or_update_group(group)
+                user.groups.add(saved_group)
+            user.save()
