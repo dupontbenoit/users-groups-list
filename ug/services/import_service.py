@@ -27,8 +27,10 @@ class CsvImport:
         obj, created = User.objects.update_or_create(
             email_address=row[1], defaults={'display_name': row[2]}
         )
+        return (obj, created)
 
     def create_or_update_group(self, row):
         obj, created = Group.objects.update_or_create(
             name=row[1]
         )
+        return (obj, created)
