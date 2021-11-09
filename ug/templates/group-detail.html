@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1 class="text-lg font-bold">{{group.name}}</h1>
+
+<h3 class="mt-5 font-bold">Member of</h3>
+<ul>
+  {% for member in group.parent.related_set %}
+  <li>{{ member }}</li>
+  {% endfor %}
+</ul>
+
+{% endblock content %}

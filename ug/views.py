@@ -17,3 +17,8 @@ class UsersAndGroupsView(TemplateView):
 class UserDetailView(DetailView):
     template_name = 'user-detail.html'
     model = User
+
+
+class GroupDetailView(DetailView):
+    template_name = 'group-detail.html'
+    model = Group

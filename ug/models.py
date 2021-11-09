@@ -8,6 +8,9 @@ class Group(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 
 class User(models.Model):
     email_address = models.EmailField(unique=True)
@@ -16,3 +19,6 @@ class User(models.Model):
 
     def __str__(self) -> str:
         return self.display_name
+
+    class Meta:
+        ordering = ['display_name']

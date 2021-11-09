@@ -1,11 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class=" font-bold">Users</h2>
 <ul>
   {% for user in users %}
   <li><a href="{% url 'user-detail' user.id %}">{{user}}</a></li>
   {% endfor %}
 </ul>
 
+
+<h2 class="mt-5 font-bold">Groups</h2>
 <ul>
   {% for group in groups %}
-  <li>{{group}}</li>
+  <li><a href="{% url 'group-detail' group.id %}">{{group}}</a></li>
   {% endfor %}
 </ul>
+
+{% endblock content %}
