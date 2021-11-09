@@ -1,7 +1,9 @@
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView,DetailView
 from ug.models import User, Group
+from ug.services.import_service import CsvImport
+from io import StringIO
 
 
 class UsersAndGroupsView(TemplateView):
@@ -22,3 +24,14 @@ class UserDetailView(DetailView):
 class GroupDetailView(DetailView):
     template_name = 'group-detail.html'
     model = Group
+
+
+class ImportView(TemplateView):
+    template_name = 'import.html'
+
+    def post(self, request):
+        imp = CsvImport()
+        data = StringIO(request.POST.get('csv-data'))
+        imp.load(data)
+        return redirect("index")
+

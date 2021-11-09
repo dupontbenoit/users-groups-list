@@ -10,11 +10,18 @@
 </ul>
 
 
-<h2 class="mt-5 font-bold">Groups</h2>
+<h2 class="mt-5  font-bold">Groups</h2>
 <ul>
   {% for group in groups %}
   <li><a href="{% url 'group-detail' group.id %}">{{group}}</a></li>
   {% endfor %}
 </ul>
 
+
+<div class="mt-5">
+<a href="{% url 'import' %}">import data</a>
+</div>
+
 {% endblock content %}
+
+

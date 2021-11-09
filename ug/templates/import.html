@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form method="post" >
+    {% csrf_token %}
+<textarea class="border" name="csv-data">
+
+</textarea>
+
+<button type="submit">Save</button>
+</form>
+
+{% endblock %}
