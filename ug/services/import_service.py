@@ -16,7 +16,8 @@ class CsvImport:
                     self.handle_user_groups(user, row)
 
                 if self.is_group(row[0]):
-                    self.create_or_update_group(row[1])
+                    group, created = self.create_or_update_group(row[1])
+                    self.handle_groups_of_group(group, row)
 
     def is_user(self, value: str):
         return value == 'U'
@@ -42,3 +43,13 @@ class CsvImport:
                 saved_group, created = self.create_or_update_group(group)
                 user.groups.add(saved_group)
             user.save()
+
+    def handle_groups_of_group(self, group: Group, row):
+        if len(row) > 2:
+            for group_name in row[2].split(';'):
+                parent_group, created = Group.objects.get_or_create(name=group_name)
+                print('----')
+                print(parent_group)
+                print('---')
+                group.parent.add(parent_group)
+            group.save()
