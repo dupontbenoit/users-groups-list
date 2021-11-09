@@ -1,0 +1,11 @@
+<ul>
+  {% for user in users %}
+  <li><a href="{% url 'user-detail' user.id %}">{{user}}</a></li>
+  {% endfor %}
+</ul>
+
+<ul>
+  {% for group in groups %}
+  <li>{{group}}</li>
+  {% endfor %}
+</ul>
